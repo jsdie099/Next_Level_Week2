@@ -7,6 +7,7 @@ import backIcon from '../../assets/images/icons/back.svg'
 interface PageHeaderProps{
     title:string;/* Se não quiser obrigatório basta colocar 
     uma interrogação antes do :, mas deve ser declarado um valor padrão */
+    description?:string;
 }
 
 const PageHeader:React.FC<PageHeaderProps> = (props) => {
@@ -20,6 +21,7 @@ const PageHeader:React.FC<PageHeaderProps> = (props) => {
             </div>
             <div className="header-content">
                 <strong>{props.title}</strong>
+                {props.description && <p>{props.description}</p>}
                 {props.children}
             </div>
         </header>
