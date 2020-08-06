@@ -56,7 +56,7 @@ export default function TeacherForm() {
             schedule: scheduleItems
         })
         .then(()=>{
-            history.push("/study");
+            history.push("/");
         })
         .catch(error=>console.log(error))
     }
