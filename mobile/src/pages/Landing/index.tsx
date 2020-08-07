@@ -7,7 +7,7 @@ import studyIcon from '../../assets/images/icons/study.png';
 import giveClassesIcon from '../../assets/images/icons/give-classes.png';
 import heartIcon from '../../assets/images/icons/heart.png';
 
-import styles from './styles';
+import styles from './styles'; 
 
 
 
