@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         fontFamily:'Archivo_700Bold',
         color: '#fff',
         fontSize:20
-    },
+    }, 
     totalConnections:{
         fontFamily: 'Poppins_400Regular',
         color:'#d4c2ff',

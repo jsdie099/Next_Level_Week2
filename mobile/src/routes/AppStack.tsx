@@ -14,5 +14,5 @@ export default function AppStack() {
                 <Screen component={Landing} name="Landing" />
             </Navigator>
         </NavigationContainer>
-    )
+    ) 
 }
