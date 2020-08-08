@@ -15,7 +15,7 @@ export default function App() {
   });
   if(fontsLoaded)
   {
-    return (
+    return ( 
       <>
         <AppStack/>
         <StatusBar style="light" />

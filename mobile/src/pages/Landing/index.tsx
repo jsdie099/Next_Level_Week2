@@ -1,5 +1,8 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { RectButton } from 'react-native-gesture-handler';
+
 
 import landingImg from '../../assets/images/landing.png';
 
@@ -12,6 +15,17 @@ import styles from './styles';
 
 
 export default function Landing() {
+    const {navigate} = useNavigation();
+
+    function handleNavigateToGiveClasses()
+    {
+        navigate("GiveClasses");
+    }
+    function handleNavigateToStudyPages()
+    {
+        navigate("Study");
+    }
+
     return (
         <View style={styles.container}>
             <Image source={landingImg} style={styles.banner} />
@@ -23,18 +37,24 @@ export default function Landing() {
                 </Text>
             </Text>
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={[styles.button, styles.buttonPrimary]}>
+                <RectButton 
+                    style={[styles.button, styles.buttonPrimary]} 
+                    onPress={handleNavigateToStudyPages}
+                >
                     <Image source={studyIcon} />
                     <Text style={styles.buttonText}>
                         Estudar
                     </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.button, styles.buttonSecondary]}>
+                </RectButton>
+                <RectButton 
+                    style={[styles.button, styles.buttonSecondary]} 
+                    onPress={handleNavigateToGiveClasses}
+                >
                     <Image source={giveClassesIcon} />
                     <Text style={styles.buttonText}>
                         Dar aula
                     </Text>
-                </TouchableOpacity>
+                </RectButton>
             </View>
             <Text style={styles.totalConnections}>
                 Total de 285 conexões já realizadas {' '}
