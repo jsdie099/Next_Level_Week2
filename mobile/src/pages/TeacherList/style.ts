@@ -23,7 +23,9 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         paddingHorizontal:16,
         marginTop:4,
-        marginBottom:16
+        marginBottom:16,
+        fontSize:16,
+        fontWeight:"500"
     },
     inputGroup:{
         flexDirection:'row',

@@ -3,7 +3,7 @@ import { View, Text, TextInput, ScrollView } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { Picker } from '@react-native-community/picker';
 
 
 import PageHeader from '../../components/PageHeader';
@@ -18,9 +18,8 @@ export default function TeacherList() {
     const [favorites, setFavorites] = useState<number[]>([]);
     const [time, setTime] = useState("");
     const [subject, setSubject] = useState("");
-    const [week_day, setWeekDay] = useState("");
+    const [week_day, setWeekDay] = useState<string>("0");
     const [teachers, setTeachers] = useState<Teacher[]>([]);
-
 
 
     function loadFavorites()
@@ -85,13 +84,27 @@ export default function TeacherList() {
                         <View style={styles.inputGroup}>
                             <View style={styles.inputBlock}>
                                 <Text style={styles.label}>Dia da semana</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Qual o dia?"
-                                    placeholderTextColor="#c1bccc"
-                                    defaultValue={week_day}
-                                    onChangeText={text=>setWeekDay(text)}
-                                />      
+                                <View style={styles.input}>
+                                    <Picker
+                                        style={{
+                                            backgroundColor:'#fff', 
+                                            color:"#b4b4b4"
+                                        }}
+                                        onValueChange={(week_day)=>setWeekDay(week_day.toString())}
+                                        mode="dropdown"
+                                        itemStyle={{paddingHorizontal:30}}
+                                        selectedValue={week_day}
+                                    >
+                                        <Picker.Item label="Selecione um dia" value="-1" />
+                                        <Picker.Item label="Domingo" value="0"/>
+                                        <Picker.Item label="Segunda-feira" value="1"/>
+                                        <Picker.Item label="Terça-feira" value="2"/>
+                                        <Picker.Item label="Quarta-feira" value="3"/>
+                                        <Picker.Item label="Quinta-feira" value="4"/>
+                                        <Picker.Item label="Sexta-feira" value="5"/>
+                                        <Picker.Item label="Sábado" value="6" />
+                                    </Picker>
+                                </View>
                             </View>
                             <View style={styles.inputBlock}>
                                 <Text style={styles.label}>Horário</Text>
