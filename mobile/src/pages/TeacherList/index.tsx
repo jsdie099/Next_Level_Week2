@@ -4,7 +4,7 @@ import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Picker } from '@react-native-community/picker';
-
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 import PageHeader from '../../components/PageHeader';
 import TeacherItem, {Teacher} from '../../components/TeacherItem';
@@ -14,10 +14,11 @@ import api from '../../services/api';
 
 
 export default function TeacherList() {
-    const [isFilterVisible, setIsFilterVisible] = useState(false); 
+    const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false); 
+    const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
     const [favorites, setFavorites] = useState<number[]>([]);
-    const [time, setTime] = useState("");
-    const [subject, setSubject] = useState("");
+    const [time, setTime] = useState<string>("");
+    const [subject, setSubject] = useState<string>("");
     const [week_day, setWeekDay] = useState<string>("0");
     const [teachers, setTeachers] = useState<Teacher[]>([]);
 
@@ -37,6 +38,24 @@ export default function TeacherList() {
     {
         setIsFilterVisible(!isFilterVisible);
     }
+
+    function formatTime(time:any)
+    {
+        const timestamp = time.nativeEvent.timestamp;
+        if(timestamp !== undefined)
+        {
+            const currentDate = new Date(timestamp);
+            const selectedHour = currentDate.getHours();
+            const selectedMinutes = 
+                (currentDate.getMinutes()>9)
+                    ?
+                currentDate.getMinutes()
+                    :
+                "0"+currentDate.getMinutes(); 
+            setTime(`${selectedHour}:${selectedMinutes}`);
+        }
+    }
+
 
     async function handleFiltersSubmit(){
         loadFavorites();
@@ -108,14 +127,27 @@ export default function TeacherList() {
                             </View>
                             <View style={styles.inputBlock}>
                                 <Text style={styles.label}>Horário</Text>
-                                <TextInput
+                                <RectButton 
+                                    style={styles.input} 
+                                    onPress={e=>{
+                                            setShowTimePicker(true);
+                                            setTimeout(()=>{setShowTimePicker(false);},500);
+                                        }}
+                                >
+                                    <Text style={{color:'#b4b4b4', fontSize:16}}>
+                                        {time ? time:'Qual o horário?'}
+                                    </Text>
+                                </RectButton>
+                                {showTimePicker && 
+                                    (<RNDateTimePicker
+                                        is24Hour
+                                        mode="time"
+                                        display="default"
+                                        value={new Date()} 
+                                        onChange={time=>formatTime(time)}
+                                    />)
                                     
-                                    style={styles.input}
-                                    placeholder="Qual o o horário?"
-                                    placeholderTextColor="#c1bccc"
-                                    defaultValue={time}
-                                    onChangeText={text=>setTime(text)}
-                                />      
+                                }
                             </View>
                         </View>
                         <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
